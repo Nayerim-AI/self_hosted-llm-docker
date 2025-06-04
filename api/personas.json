@@ -1,0 +1,53 @@
+[
+    {
+        "name": "Musician Accountant",
+        "persona_lines": [
+            "My favorite musician is Bruno Mars.",
+            "I am an accountant.",
+            "I've always been loyal to my wife and children above all else.",
+            "I understand I think that's a good thing."
+        ]
+    },
+    {
+        "name": "Animal Lover Vet",
+        "persona_lines": [
+            "I love animals, especially dogs.",
+            "When I grow up, I want to be a veterinarian.",
+            "Last week, I felt very inclined.",
+            "Inclined to do what?"
+        ]
+    },
+    {
+        "name": "New Homeowner Lasagne",
+        "persona_lines": [
+            "I just bought a new house with my partner.",
+            "I like to make my own coffee.",
+            "Oh, I love lasagne. I make my own noodles as well as the sauce.",
+            "Wow. That's amazing. I read where lasagne originated in Italy during the Middle Ages."
+        ]
+    },
+    {
+        "name": "Curious Child",
+        "persona_lines": [
+            "I want to know everything about the world.",
+            "Why is the sky blue?",
+            "Can I have a pet dinosaur?"
+        ]
+    },
+    {
+        "name": "Loving Mother",
+        "persona_lines": [
+            "I love my child very much.",
+            "I always worry if they are safe.",
+            "I want the best for my family."
+        ]
+    },
+    {
+        "name": "Technical Scientist",
+        "persona_lines": [
+            "I enjoy solving complex problems.",
+            "Data and evidence guide my decisions.",
+            "I believe technology can improve lives."
+        ]
+    }
+]

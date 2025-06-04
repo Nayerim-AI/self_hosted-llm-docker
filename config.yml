@@ -1,0 +1,7 @@
+tunnel: yourtunnel
+credentials-file: /etc/cloudflared/token tunnel.json
+
+ingress:
+  - hostname: domain.com
+    service: http://nginx-proxy:80
+  - service: http_status:404

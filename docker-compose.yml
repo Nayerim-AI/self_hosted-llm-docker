@@ -1,0 +1,77 @@
+
+networks:
+  llmnet:
+    driver: bridge
+
+volumes:
+  models_data:
+    driver_opts:
+      type: none
+      device: ./models
+      o: bind
+
+services:
+  api:
+    build:
+      context: ./api
+    container_name: llm-api
+    networks:
+      - llmnet
+    volumes:
+      - ./models:/models
+      - ./shared:/shared
+      - ./checker:/app/checker
+      - ./.env:/app/.env
+      - ./api/main.py:/app/main.py
+      - ./api/main:/app/main
+      - ./api/personas.json:/app/personas.json
+      - ./pipeline:/app/pipeline
+    ports:
+      - "5000:5000"
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '4'        
+          memory: 6G
+
+
+  streamlit:
+    image: python:3.10-slim
+    container_name: streamlit-app
+    networks:
+      - llmnet
+    working_dir: /app
+    volumes:
+      - ./app:/app
+      - ./models:/models
+    command: >
+      /bin/sh -c "pip install streamlit requests && streamlit run app.py --server.port=8501 --server.address=0.0.0.0"
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    networks:
+      - llmnet
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - streamlit
+    restart: always
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    networks:
+      - llmnet
+    command: tunnel --config /etc/cloudflared/config.yml run
+    volumes:
+      - ./cloudflared:/etc/cloudflared
+    restart: unless-stopped
